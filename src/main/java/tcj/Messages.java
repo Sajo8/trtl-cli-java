@@ -98,7 +98,6 @@ public class Messages {
         "under certain conditions"
       };
       licenseMsg = colorMessage(licenseStrings, "yellow");
-      System.out.println(licenseMsg);
     }
 
     /* Function which takes a list of strings, then colors them and returns it with newlines
