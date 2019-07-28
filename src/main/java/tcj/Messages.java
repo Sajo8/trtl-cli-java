@@ -17,7 +17,7 @@
 
 package tcj;
 
-import static org.fusesource.jansi.Ansi.*;
+import tcj.Utils;
 
 public class Messages {
 
@@ -27,6 +27,8 @@ public class Messages {
     String asciiMsg;
     String licenseMsg;
 
+    Utils utils = new Utils();
+
     public Messages() {
 
       String[] versionStrings = {
@@ -34,7 +36,7 @@ public class Messages {
         "Made by Sajo8", 
         "Based off of TRTL CLI made by mrrovot, zack796, and brandonlehman", 
         "Version 1.0.0"};
-      versionMsg = colorMessage(versionStrings, "yellow");
+      versionMsg = utils.colorMessage(versionStrings, "yellow");
 
       String[] helpStrings = {
         "Usage: [options]", 
@@ -62,7 +64,7 @@ public class Messages {
         "license|l        Show license information",
         "exit|quit|e|q    Exit TRTL CLI java"
       };
-      helpMsg = colorMessage(helpStrings, "yellow");
+      helpMsg = utils.colorMessage(helpStrings, "yellow");
 
       String welcomeStrings[] = {
         "Welcome to TRTL CLI java!",
@@ -73,7 +75,7 @@ public class Messages {
         "help|h     output the help message",
         "license|l  show license information"
       };
-      welcomeMsg = colorMessage(welcomeStrings, "green");
+      welcomeMsg = utils.colorMessage(welcomeStrings, "green");
 
       String asciiStrings[] = {
         "Available ASCII art:",
@@ -89,7 +91,7 @@ public class Messages {
         "turtlefighter",
         "walker"
       };
-      asciiMsg = colorMessage(asciiStrings, "yellow");
+      asciiMsg = utils.colorMessage(asciiStrings, "yellow");
 
       String licenseStrings[] = {
         "TRTL CLI java Copyright (C) 2019 Sajo8",
@@ -97,30 +99,6 @@ public class Messages {
         "This is free software, and you are welcome to redistribute it",
         "under certain conditions"
       };
-      licenseMsg = colorMessage(licenseStrings, "yellow");
+      licenseMsg = utils.colorMessage(licenseStrings, "yellow");
     }
-
-    /* Function which takes a list of strings, then colors them and returns it with newlines
-    * Only adds one newline after each string
-    * If you need more than that, then add each additional one needed in the list itself
-    * Ex:
-    * If you need one line after the other, just put strings
-    * If you want one fully blank line then add 1 "\n" in the list passed
-    * Beginning newline _not_ required */
-    private String colorMessage(String[] messages, String color) { 
-      String formattedMessage;
-      String coloredMessage = "\n";
-      for (String s: messages) {       
-        // If an extra newline is needed, then just added and move onto next string
-        if (s == "\n") {
-          coloredMessage += "\n";
-          continue;
-        }    
-        formattedMessage = String.format("@|%s %s|@", color, s);
-        coloredMessage += ansi().render(formattedMessage).toString()
-        ;
-        coloredMessage += "\n";
-      }
-    return coloredMessage;
-  }
 }

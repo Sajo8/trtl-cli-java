@@ -1,62 +1,98 @@
 package tcj;
 
-import kong.unirest.Unirest;
-import kong.unirest.JsonNode;
-import kong.unirest.HttpResponse;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+// Get user input
+import java.util.Scanner; 
+// Parse user input
+import java.util.Arrays;
 
 import tcj.Messages;
-
-import java.util.Scanner; 
+import tcj.Utils;
 
 public class App 
 {
     boolean firstRun;
-    Messages msgs;
+    
+    static Messages msgs = new Messages();;
+    static Utils utils = new Utils();
 
-    public App() {
-        firstRun = true;
-        msgs = new Messages();
-    }
+    static String[] helpCommands = {"help", "h"}; 
+    static String[] versionCommands = {"version", "v"};
+    
+    static String[] marketCommands = {"market", "m"};
+    static String[] supplyCommands = {"supply", "input"};
+    static String[] networkCommands = {"network", "n"};
+    static String[] priceCommands = {"price", "p"};
+    static String[] asciiCommands = {"ascii", "a"};
+    static String[] asciiListCommands = {"ascii list", "al"};
+    static String[] checkpointsCommands = {"checkpoints", "c"};
+    static String[] nodesCommands = {"nodes", "no"};
+    static String[] txCommands = {"tx", "t"};
+    static String[] poolCommands = {"pools", "po"};
+
+    static String[] licenseCommands = {"license", "l"};
+    static String[] exitCommands = {"exit", "quit", "e", "q"};
+    
+
 
     public static void main( String[] args )
     {
+        
+        System.out.println(msgs.licenseMsg);
+        System.out.println(msgs.welcomeMsg);
 
-        App app = new App();
         Scanner reader = new Scanner(System.in);
 
         while (true) {
+            
+            // Get input
+            System.out.print("> ");
+            String input = reader.nextLine();
+            // Trim trailing and leading blank spaces
+            input = input.toLowerCase().strip();
+            // Restart if empty
+            if (input == "") {
+                continue;
+            }
+            // Split it into a list
+            String[] split_input = input.split(" ");
+            // First index is main command, 2nd is the args
+            String command = split_input[0];
+            try {
+                String commandArgs = split_input[1];
+            } catch(Exception e) {
 
-            if (app.firstRun) {
-                System.out.println(app.msgs.licenseMsg);
-                System.out.println(app.msgs.welcomeMsg);
-                app.firstRun = false;
             }
             
-            String s;
-            System.out.print("> ");
-            s = reader.nextLine();
-    
-            if (s.equals("h")) {
-                System.out.println(app.msgs.helpMsg);
-            } else if (s.equals("v")) {
-                System.out.println(app.msgs.versionMsg);
-            } else if (s.equals("l")) {
-                System.out.println(app.msgs.licenseMsg);
-            } else if (s.equals("n")) {
-                HttpResponse<JsonNode> jsonResponse = Unirest.get("https://raw.githubusercontent.com/turtlecoin/turtlecoin-pools-json/master/v2/turtlecoin-pools.json")
-                    .asJson();
-                JSONObject actualJSON = jsonResponse.getBody().getObject();
-                JSONArray thePools = actualJSON.getJSONArray("pools");
-                System.out.println(thePools.toString(4));
-            }
+            
+            if (Arrays.asList(helpCommands).contains(command)) {
+            
+                System.out.println(msgs.helpMsg);
+            
+            } else if (Arrays.asList(versionCommands).contains(command)) {
+            
+                System.out.println(msgs.versionMsg);
+            
+            } else if (Arrays.asList(licenseCommands).contains(command)) {
+            
+                System.out.println(msgs.licenseMsg);
+            
+            } else if (Arrays.asList(nodesCommands).contains(command)) {
 
-            if (s.equals("close")) {
+    
+            } else if (Arrays.asList(exitCommands).contains(command)) {
+            
                 System.out.println("Bye!");
                 reader.close();
                 System.exit(0);
+            
+            } else {
+                
+                // Format string with user input
+                String errorMsg = String.format("Sorry, input not recognized: \"%s\"", input);
+
+                // Color it red and print it out
+                errorMsg = utils.colorLine(errorMsg, "red");
+                System.out.println(errorMsg + "\n");
             }
         }
     }
