@@ -15,7 +15,7 @@ public class Utils {
         String formattedMessage;
         String coloredMessage = "\n";
         for (String s: messages) {       
-          // If an extra newline is needed, then just added and move onto next string
+          // If an extra newline is needed, then just add it and move onto next string
           if (s == "\n") {
             coloredMessage += "\n";
             continue;
@@ -27,6 +27,8 @@ public class Utils {
       return coloredMessage;
     }
 
+    // Same as colorMessage(), but for a single line only
+    // No newlines added
     public String colorLine(String message, String color) {
       String formattedMessage;
       String coloredMessage = "";

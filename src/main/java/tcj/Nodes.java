@@ -9,24 +9,30 @@ import kong.unirest.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // To make a table to format output
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import tcj.TableGenerator;
 
 import tcj.Utils;
 
 public class Nodes {
 
     static Utils utils = new Utils();
+    static TableGenerator table = new TableGenerator();
+    
 
-    public static void main(String[] args) {
+    public String getNodes() {
 
-        AsciiTable table = new AsciiTable();
-        table.setTextAlignment(TextAlignment.CENTER);
-        
-        table.addRule();
-        table.addRow("Name", "URL", "Port", "SSL", "Cache");
-        table.addRule();
+        List<String> headersList = new ArrayList<>();
+        headersList.add("Name");
+        headersList.add("URL");
+        headersList.add("Port");
+        headersList.add("SSL");
+        headersList.add("Cache");
+
+        List<List<String>> rowsList = new ArrayList<>();
 
         // Get data
         HttpResponse<JsonNode> jsonResponse = Unirest.get("https://raw.githubusercontent.com/turtlecoin/turtlecoin-nodes-json/master/turtlecoin-nodes.json")
@@ -37,6 +43,9 @@ public class Nodes {
         JSONArray nodesList = actualJSON.getJSONArray("nodes");
 
         for (int i = 0; i < nodesList.length(); i++) {
+            
+            List<String> row = new ArrayList<>(); 
+            
             JSONObject node = nodesList.getJSONObject(i);
             
             String nodeName = node.getString("name");
@@ -56,16 +65,18 @@ public class Nodes {
             String nodeHasCache = Boolean.toString(node.getBoolean("cache"));
             nodeHasCache = (nodeHasCache.equals("true")) ? utils.colorLine(nodeHasCache, "green") : utils.colorLine(nodeHasCache, "red");
             
-            System.out.println(nodeName);
-            System.out.println(nodeUrl);
-            System.out.println(nodePort);
-            System.out.println(nodeIsSSL);
-            System.out.println(nodeHasCache);
-            table.addRule();
-        }
-        String rend = table.render();
-        // System.out.println(rend);
-                    
-    }
+            row.add(nodeName);
+            row.add(nodeUrl);
+            row.add(nodePort);
+            row.add(nodeIsSSL);
+            row.add(nodeHasCache);
 
+            rowsList.add(row);
+
+        }
+
+        String tableOfNodes = table.generateTable(headersList, rowsList);
+        return tableOfNodes;
+
+    }
 }

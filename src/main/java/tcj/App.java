@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import tcj.Messages;
 import tcj.Utils;
+import tcj.Nodes;
 
 public class App 
 {
@@ -14,6 +15,7 @@ public class App
     
     static Messages msgs = new Messages();;
     static Utils utils = new Utils();
+    static Nodes nodes = new Nodes();
 
     static String[] helpCommands = {"help", "h"}; 
     static String[] versionCommands = {"version", "v"};
@@ -78,6 +80,7 @@ public class App
             
             } else if (Arrays.asList(nodesCommands).contains(command)) {
 
+                System.out.println(nodes.getNodes());
     
             } else if (Arrays.asList(exitCommands).contains(command)) {
             
