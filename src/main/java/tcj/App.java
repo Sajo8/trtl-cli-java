@@ -26,6 +26,7 @@ import tcj.Messages;
 import tcj.Utils;
 import tcj.Nodes;
 import tcj.Market;
+import tcj.Supply;
 
 public class App 
 {
@@ -35,12 +36,13 @@ public class App
     static Utils utils = new Utils();
     static Nodes nodes = new Nodes();
     static Market market = new Market();
+    static Supply supply = new Supply();
 
     static String[] helpCommands = {"help", "h"}; 
     static String[] versionCommands = {"version", "v"};
     
     static String[] marketCommands = {"market", "m"};
-    static String[] supplyCommands = {"supply", "input"};
+    static String[] supplyCommands = {"supply", "s"};
     static String[] networkCommands = {"network", "n"};
     static String[] priceCommands = {"price", "p"};
     static String[] asciiCommands = {"ascii", "a"};
@@ -93,6 +95,10 @@ public class App
 
                 System.out.println(market.getMarketData());
             
+            } else if (Arrays.asList(supplyCommands).contains(command)) {
+
+                System.out.println(supply.getSupplyData());
+
             } else if (Arrays.asList(versionCommands).contains(command)) {
             
                 System.out.println(msgs.versionMsg);
