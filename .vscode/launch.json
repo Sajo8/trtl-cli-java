@@ -9,6 +9,13 @@
         },
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Checkpoints",
+            "request": "launch",
+            "mainClass": "tcj.Checkpoints",
+            "projectName": "tcj"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Nodes",
             "request": "launch",
             "mainClass": "tcj.Nodes",
