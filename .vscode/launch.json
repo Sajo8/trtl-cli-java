@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Market",
+            "request": "launch",
+            "mainClass": "tcj.Market",
+            "projectName": "tcj"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Nodes",
             "request": "launch",
             "mainClass": "tcj.Nodes",

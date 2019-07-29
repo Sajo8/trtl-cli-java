@@ -9,12 +9,14 @@ import kong.unirest.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+// To hold parsed data
 import java.util.ArrayList;
 import java.util.List;
 
 // To make a table to format output
 import tcj.TableGenerator;
 
+// To color message
 import tcj.Utils;
 
 public class Nodes {
@@ -23,7 +25,9 @@ public class Nodes {
     static TableGenerator table = new TableGenerator();
     
 
-    public String getNodes() {
+    public String getNodeData() {
+
+        System.out.println(utils.colorLine("\nReceiving node data...", "yellow  "));
 
         List<String> headersList = new ArrayList<>();
         headersList.add("Name");

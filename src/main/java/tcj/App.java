@@ -8,6 +8,7 @@ import java.util.Arrays;
 import tcj.Messages;
 import tcj.Utils;
 import tcj.Nodes;
+import tcj.Market;
 
 public class App 
 {
@@ -16,6 +17,7 @@ public class App
     static Messages msgs = new Messages();;
     static Utils utils = new Utils();
     static Nodes nodes = new Nodes();
+    static Market market = new Market();
 
     static String[] helpCommands = {"help", "h"}; 
     static String[] versionCommands = {"version", "v"};
@@ -70,6 +72,10 @@ public class App
             
                 System.out.println(msgs.helpMsg);
             
+            } else if (Arrays.asList(marketCommands).contains(command)) {
+
+                System.out.println(market.getMarketData());
+            
             } else if (Arrays.asList(versionCommands).contains(command)) {
             
                 System.out.println(msgs.versionMsg);
@@ -80,7 +86,7 @@ public class App
             
             } else if (Arrays.asList(nodesCommands).contains(command)) {
 
-                System.out.println(nodes.getNodes());
+                System.out.println(nodes.getNodeData());
     
             } else if (Arrays.asList(exitCommands).contains(command)) {
             
