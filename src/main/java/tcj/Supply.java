@@ -24,7 +24,6 @@ import kong.unirest.HttpResponse;
 
 // To format numbers appropriately
 import java.text.NumberFormat;
-import java.text.DecimalFormat;
 
 // To parse json
 import org.json.JSONArray;
