@@ -28,6 +28,7 @@ import tcj.Nodes;
 import tcj.Market;
 import tcj.Supply;
 import tcj.Checkpoints;
+import tcj.Network;
 
 public class App 
 {
@@ -39,6 +40,7 @@ public class App
     static Market market = new Market();
     static Supply supply = new Supply();
     static Checkpoints checkpoints = new Checkpoints();
+    static Network network = new Network();
 
     static String[] helpCommands = {"help", "h"}; 
     static String[] versionCommands = {"version", "v"};
@@ -117,6 +119,10 @@ public class App
 
                 System.out.println(nodes.getNodeData());
     
+            } else if (Arrays.asList(networkCommands).contains(command)) {
+
+                System.out.println(network.getNetworkData());
+
             } else if (Arrays.asList(exitCommands).contains(command)) {
             
                 System.out.println("Bye!");
